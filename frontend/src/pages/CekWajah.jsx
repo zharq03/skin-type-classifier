@@ -32,7 +32,7 @@ function CekWajah() {
     console.log('FormData prepared:', formData.get('file').name); // Debugging
 
     try {
-      const response = await fetch('https://bareface-production.up.railway.app/', {
+      const response = await fetch('https://bareface-production.up.railway.app/predict', {
         method: 'POST',
         body: formData,
       });
