@@ -1,58 +1,91 @@
+import React from 'react';
+
 function Teknologi() {
   return (
-    <section className="py-12 bg-white flex items-center justify-center">
-      <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
-        <div className="w-1/2 md:w-1/3">
-          <img
-            src="/images/Fr.png"
-            alt="Teknologi"
-            className="rounded-full object-cover w-full h-auto"
-          />
-        </div>
-        <div className="w-full md:w-2/3">
-          <h2 className="text-3xl font-bold text-black mb-6">Teknologi Yang Digunakan</h2>
-          <p className="text-lg text-black mb-6">
-            Untuk mengklasifikasi wajah anda kami menggunakan 3 teknologi Machine Learning yang sudah di latih dengan data yang besar ini penjelasannya :
-          </p>
-          <div className="flex flex-col gap-4">
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">Hybrid Approach</h3>
-                <p className="text-sm text-gray-700">
-                  Menggabungkan dua pintur untuk mengenali jenis kulit wajah dengan lebih akurat. Satu memahami gambar secara visual dan satu lagi memahami sifat-sifatnya.
-                </p>
-              </div>
+    <section className="py-12 lg:py-26 bg-neutral-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          {/* Gambar Kiri */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative">
               <img
-                src="/images/Fr.png"
-                alt="Hybrid Approach"
-                className="w-16 h-16 rounded"
+                src="/images/aset2.png"
+                alt="AI Technology"
+                className="w-full max-w-md rounded-full shadow-2xl object-cover border-8 border-white"
               />
+              <div className="absolute -top-10 -left-10 w-48 h-48 bg-primary-100 rounded-full blur-3xl opacity-60 -z-10"></div>
+              <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-primary-200 rounded-full blur-3xl opacity-40 -z-10"></div>
             </div>
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">Support Vector Machine</h3>
-                <p className="text-sm text-gray-700">
-                  Bertindak sebagai pengambil keputusan akhir jenis kulit wajah, dengan menggunakan data yang telah di proses oleh MobileNet untuk memberikan hasil akhir.
-                </p>
+          </div>
+
+          {/* Teks + List Kanan */}
+          <div>
+            <h2 className="font-poppins text-4xl md:text-5xl font-bold text-primary-900 mb-6">
+              Teknologi Yang Digunakan
+            </h2>
+            <p className="font-poppins text-lg text-primary-900/80 leading-relaxed mb-10">
+              Untuk mengklasifikasi wajah anda, kami menggunakan <strong>3 teknologi Machine Learning</strong> 
+              yang sudah dilatih dengan data besar. Ini penjelasannya:
+            </p>
+
+            {/* Card List - Background primary-50 */}
+            <div className="bg-primary-50 rounded-3xl p-8 lg:p-10 shadow-card space-y-8">
+
+              {/* Hybrid Approach */}
+              <div className="flex items-center justify-between gap-6 group">
+                <div className="flex-1">
+                  <h3 className="font-poppins text-xl font-bold text-primary-900 mb-2">
+                    Hybrid Approach
+                  </h3>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Menggabungkan dua model pintar: satu memahami gambar secara visual, 
+                    satu lagi memahami fitur numerik kulit — hasilnya jauh lebih akurat.
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-300 to-blue-400 rounded-2xl shadow-lg flex items-center justify-center p-3 group-hover:scale-110 transition-transform">
+                    <img src="/images/aset10.png" alt="Hybrid" className="w-full h-full object-contain" />
+                  </div>
+                </div>
               </div>
-              <img
-                src="/images/Fr.png"
-                alt="Support Vector Machine"
-                className="w-16 h-16 rounded"
-              />
-            </div>
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">MobileNet</h3>
-                <p className="text-sm text-gray-700">
-                  Sebuah model pintar yang telah di latih untuk mengenali pola dan bentuk pada gambar kulit wajah. Efisien dan cepat dalam memproses data gambar.
-                </p>
+
+              {/* Support Vector Machine */}
+              <div className="flex items-center justify-between gap-6 group">
+                <div className="flex-1">
+                  <h3 className="font-poppins text-xl font-bold text-primary-900 mb-2">
+                    Support Vector Machine
+                  </h3>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Bertindak sebagai pengambil keputusan akhir. Memberikan hasil klasifikasi 
+                    jenis kulit dengan akurasi tinggi berdasarkan data yang sudah diproses.
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-gradient-to-br from-indigo-300 to-purple-400 rounded-2xl shadow-lg flex items-center justify-center p-3 group-hover:scale-110 transition-transform">
+                    <img src="/images/aset11.png" alt="SVM" className="w-full h-full object-contain" />
+                  </div>
+                </div>
               </div>
-              <img
-                src="/images/Fr.png"
-                alt="MobileNet"
-                className="w-16 h-16 rounded"
-              />
+
+              {/* MobileNet */}
+              <div className="flex items-center justify-between gap-6 group">
+                <div className="flex-1">
+                  <h3 className="font-poppins text-xl font-bold text-primary-900 mb-2">
+                    MobileNet
+                  </h3>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Model ringan & cepat yang sudah dilatih dengan jutaan gambar. 
+                    Mampu mengenali tekstur, kilap, dan pori-pori kulit secara otomatis.
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-gradient-to-br from-cyan-300 to-teal-400 rounded-2xl shadow-lg flex items-center justify-center p-3 group-hover:scale-110 transition-transform">
+                    <img src="/images/aset12.png" alt="MobileNet" className="w-full h-full object-contain" />
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

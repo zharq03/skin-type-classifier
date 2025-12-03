@@ -1,59 +1,97 @@
+import React from 'react';
+
 function Perawatan() {
   return (
-    <section className="py-12 bg-white flex items-center justify-center">
-      <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
-        <div className="w-1/2 md:w-1/3">
-          <img
-            src="/images/Frame.png"
-            alt="Perawatan Wajah"
-            className="rounded-[20px] object-cover w-full h-auto"
-          />
-        </div>
-        <div className="w-full md:w-2/3">
-          <h2 className="text-3xl font-bold text-black mb-6">3 Perawatan Umum</h2>
-          <h3 className="text-2xl font-semibold text-black mb-4">Harian Wajah</h3>
-          <p className="text-lg text-black mb-6">
-            Saran dari dokter Tompi bahwa untuk merawat wajah itu hanya perlu 3 saja moisturizer, cleanser dan sunscreen yang digunakan untuk:
-          </p>
-          <div className="flex flex-col gap-4">
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200">
-              <div className="flex items-center mb-2">
-                <img
-                  src="/images/Fr.png"
-                  alt="Sunscreen"
-                  className="w-10 h-10 mr-2"
-                />
-                <h4 className="text-xl font-semibold">Sunscreen</h4>
-              </div>
-              <p className="text-sm text-gray-700">
-                Untuk pelindung dari sinar matahari ultraviolet pada wajah, digunakan pada siang hari.
-              </p>
+    <section className="py-16 lg:py-26 bg-neutral-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Gambar Kiri  */}
+          <div className="order-2 lg:order-1">
+            <div className="relative">
+              <img
+                src="/images/aset1.png"
+                alt="Wanita sedang membersihkan wajah"
+                className="w-full h-auto rounded-3xl shadow-2xl object-cover"
+              />
+              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-primary-100 rounded-full blur-3xl opacity-50 -z-10"></div>
             </div>
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200">
-              <div className="flex items-center mb-2">
-                <img
-                  src="/images/Fr.png"
-                  alt="Moisturizer"
-                  className="w-10 h-10 mr-2"
-                />
-                <h4 className="text-xl font-semibold">Moisturizer</h4>
+          </div>
+
+          {/* Teks + List Kanan */}
+          <div className="order-1 lg:order-2">
+            <h2 className="font-poppins text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+              3 Perawatan Umum
+            </h2>
+            <h3 className="font-poppins text-3xl md:text-4xl font-semibold text-primary-900 mb-6">
+              Harian Wajah
+            </h3>
+            <p className="font-poppins text-lg text-primary-900/80 leading-relaxed mb-10">
+              Saran dari <span className="font-bold text-primary-600">dr. Tompi</span> bahwa untuk merawat wajah itu{' '}
+              <span className="font-bold">hanya perlu 3 saja</span> — cukup moisturizer, cleanser, dan sunscreen yang digunakan untuk:
+            </p>
+
+            {/* List Perawatan - Card primary-50 */}
+            <div className="bg-primary-50 rounded-3xl p-8 lg:p-10 shadow-card">
+              <div className="space-y-6">
+
+                {/* Sunscreen */}
+              <div className="flex items-start gap-5 group">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white p-3 shadow-lg ring-4 ring-white/50 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                  <img 
+                    src="/images/aset7.png" 
+                    alt="Sunscreen" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 pt-1">
+                  <h4 className="font-poppins text-xl font-bold text-primary-900 mb-1">
+                    Sunscreen
+                  </h4>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Melindungi kulit dari sinar UV berbahaya. Wajib dipakai setiap hari, bahkan saat mendung.
+                  </p>
+                </div>
               </div>
-              <p className="text-sm text-gray-700">
-                Untuk pelembapan dari sinar matahari ultraviolet pada wajah, digunakan pada siang hari.
-              </p>
-            </div>
-            <div className="bg-teal-100 p-4 rounded-lg border border-teal-200">
-              <div className="flex items-center mb-2">
-                <img
-                  src="/images/Fr.png"
-                  alt="Cleanser"
-                  className="w-10 h-10 mr-2"
-                />
-                <h4 className="text-xl font-semibold">Cleanser</h4>
+
+              {/* Moisturizer */}
+              <div className="flex items-start gap-5 group">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white p-3 shadow-lg ring-4 ring-white/50 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                  <img 
+                    src="/images/aset8.png" 
+                    alt="Moisturizer" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 pt-1">
+                  <h4 className="font-poppins text-xl font-bold text-primary-900 mb-1">
+                    Moisturizer
+                  </h4>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Menjaga kelembapan kulit, mencegah kekeringan dan iritasi. Pilih sesuai tipe kulitmu.
+                  </p>
+                </div>
               </div>
-              <p className="text-sm text-gray-700">
-                Untuk pembersihan dari sinar matahari ultraviolet pada wajah, digunakan pada siang hari.
-              </p>
+
+              {/* Cleanser */}
+              <div className="flex items-start gap-5 group">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white p-3 shadow-lg ring-4 ring-white/50 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                  <img 
+                    src="/images/aset9.png" 
+                    alt="Cleanser" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 pt-1">
+                  <h4 className="font-poppins text-xl font-bold text-primary-900 mb-1">
+                    Cleanser
+                  </h4>
+                  <p className="font-poppins text-primary-900/70 text-sm leading-relaxed">
+                    Membersihkan kotoran, minyak, dan sisa makeup. Gunakan 2x sehari (pagi & malam).
+                  </p>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
         </div>

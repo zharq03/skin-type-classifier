@@ -1,142 +1,140 @@
+// src/pages/CekWajah.jsx atau dimana kamu taruh
 import { useState } from 'react';
+import SkinTypeCard from '../components/SkinTypeCard';
 
 function CekWajah() {
-  const [image, setImage] = useState(null); // Menyimpan URL pratinjau
-  const [file, setFile] = useState(null); // Menyimpan file asli
+  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && ['image/jpeg', 'image/png'].includes(selectedFile.type)) {
-      console.log('File selected:', selectedFile.name); // Debugging
-      setFile(selectedFile); // Simpan file asli
-      setImage(URL.createObjectURL(selectedFile)); // Simpan URL pratinjau
+      console.log('File selected:', selectedFile.name);
+      setFile(selectedFile);
+      setImage(URL.createObjectURL(selectedFile));
       setResult('');
       setError('');
     } else {
       setError('Hanya file JPG atau PNG yang diperbolehkan');
-      console.log('Invalid file type'); // Debugging
+      console.log('Invalid file type');
     }
   };
 
   const handlePredict = async () => {
     if (!file) {
       setError('Pilih gambar terlebih dahulu');
-      console.error('No file available for prediction'); // Debugging
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file); // Gunakan kunci 'file' sesuai backend
-    console.log('FormData prepared:', formData.get('file').name); // Debugging
+    formData.append('file', file);
+    console.log('Uploading:', formData.get('file').name);
 
     try {
       const response = await fetch('https://bareface-production.up.railway.app/predict', {
         method: 'POST',
         body: formData,
       });
-      console.log('Response status:', response.status); // Debugging
+
       const data = await response.json();
-      console.log('Response data:', data); // Debugging
+      console.log('API Response:', data);
+
       if (data.error) {
-        // Sesuaikan pesan untuk deteksi wajah
-        if (data.error === 'Wajah tidak ditemukan, silakan scan wajah Anda') {
-          setError('Wajah tidak ditemukan, silakan unggah gambar wajah Anda');
-        } else {
-          setError(data.error);
-        }
+        setError(
+          data.error.includes('Wajah tidak ditemukan')
+            ? 'Wajah tidak terdeteksi. Pastikan wajah terlihat jelas dan hanya satu wajah.'
+            : data.error
+        );
         setResult('');
       } else {
         setResult(data.prediction);
         setError('');
       }
     } catch (err) {
-      setError('Terjadi kesalahan saat memproses gambar. Pastikan server berjalan.');
-      setResult('');
-      console.error('Fetch error:', err); // Debugging
+      setError('Gagal terhubung ke server. Coba lagi nanti.');
+      console.error('Fetch error:', err);
     }
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-r from-teal-100 to-teal-200 py-12 flex items-center justify-center">
-      <div className="container mx-auto flex flex-col md:flex-row gap-8 px-4">
-        {/* Left Section: Image Upload and Prediction */}
-        <div className="md:w-1/2 flex flex-col items-start">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Mari Kita Cek Jenis Kulit Wajah Anda</h2>
-          <p className="text-lg text-gray-600 mb-6">
-            Saran dari dokter Tompi bahwa untuk merawat wajah itu hanya perlu 3 saja: moisturizer, cleanser, dan sunscreen yang digunakan untuk:
-          </p>
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    <section className="min-h-screen bg-gradient-primary pt-20 md:pt-28 lg:pt-36 pb-16 px-6">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+
+        {/* Kiri: Upload & Hasil */}
+        <div className="space-y-8">
+          <div>
+            <h1 className="font-poppins text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+              Cek Jenis Kulit Wajahmu Sekarang
+            </h1>
+            <p className="font-poppins text-lg text-primary-900/80">
+              Upload foto wajahmu, dan AI kami akan mendeteksi apakah kulitmu <strong>berjerawat, berminyak, kering, atau normal</strong>.
+            </p>
+          </div>
+
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-8 max-w-lg">
             <input
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png"
               onChange={handleImageChange}
-              className="mb-4 w-full text-gray-600"
+              className="w-full file:mr-4 file:py-3 file:px-6 file:rounded-full file:border-0 file:bg-primary-600 file:text-white hover:file:bg-primary-500 cursor-pointer"
             />
+
             {image && (
-              <img src={image} alt="Preview" className="w-full h-48 object-cover rounded-lg mb-4" />
+              <div className="mt-6">
+                <img src={image} alt="Preview" className="w-full rounded-2xl shadow-lg" />
+              </div>
             )}
+
             <button
               onClick={handlePredict}
-              className="w-full bg-white text-teal-600 border border-teal-600 py-2 px-4 rounded-full hover:bg-teal-600 hover:text-white transition duration-300"
+              disabled={!file}
+              className="mt-6 w-full bg-primary-600 hover:bg-primary-500 disabled:bg-gray-400 text-white font-poppins font-bold py-5 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
             >
-              Cek
+              {file ? 'Analisis Sekarang' : 'Pilih Gambar Dulu'}
             </button>
+
             {result && (
-              <p className="mt-4 text-lg text-gray-800">
-                Jenis kulit wajah: <strong>{result}</strong>
-              </p>
+              <div className="mt-6 p-6 bg-primary-50 rounded-2xl text-center">
+                <p className="text-lg font-poppins text-primary-900">Hasil deteksi:</p>
+                <p className="text-4xl font-bold text-primary-600 mt-2">{result}</p>
+              </div>
             )}
+
             {error && (
-              <p className="mt-4 text-red-500 font-semibold">
+              <p className="mt-4 text-red-600 font-poppins font-medium text-center bg-red-50 py-3 rounded-xl">
                 {error}
               </p>
             )}
           </div>
         </div>
 
-        {/* Right Section: Skin Type Explanations */}
-        <div className="md:w-1/2 flex flex-col gap-6">
-          <div className="bg-white rounded-lg shadow-lg p-4 flex items-center gap-4">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Fr.png`}
-              alt="Oily skin illustration"
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800">Oily</h3>
-              <p className="text-gray-600">
-                Untuk pelindung dari tabir surya atau sinar ultraviolet pada matahari digunakan pada siang hari.
-              </p>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-4 flex items-center gap-4">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Fr.png`}
-              alt="Normal skin illustration"
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800">Normal</h3>
-              <p className="text-gray-600">
-                Untuk pelindung dari tabir surya atau sinar ultraviolet pada matahari digunakan pada siang hari.
-              </p>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-4 flex items-center gap-4">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Fr.png`}
-              alt="Dry skin illustration"
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800">Dry</h3>
-              <p className="text-gray-600">
-                Untuk pelindung dari tabir surya atau sinar ultraviolet pada matahari digunakan pada siang hari.
-              </p>
-            </div>
-          </div>
+        {/* Kanan: Penjelasan Jenis Kulit */}
+        <div className="space-y-8">
+          <SkinTypeCard
+            type="oily"
+            imageSrc="/images/aset13.png"
+            title="Berminyak"
+            description="Kulit mengkilap, pori besar, rentan jerawat. Butuh produk oil-control & clay mask."
+          />
+          <SkinTypeCard
+            type="normal"
+            imageSrc="/images/aset5.png"
+            title="Normal"
+            description="Kulit seimbang, halus, pori kecil. Tipe kulit ideal — cukup pakai basic routine."
+          />
+          <SkinTypeCard
+            type="dry"
+            imageSrc="/images/aset6.png"
+            title="Kering"
+            description="Kulit kusam, kasar, mudah iritasi. Butuh hidrasi intens dengan moisturizer kental."
+          />
+          <SkinTypeCard
+            imageSrc="/images/aset3.png" 
+            title="Berjerawat"
+            description="Kulit rentan breakout, komedo, dan inflamasi. Butuh treatment dengan salicylic acid, benzoyl peroxide, atau retinoid."
+          />
         </div>
       </div>
     </section>
