@@ -9,20 +9,31 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-sm">
 
           {/* Layanan */}
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
-            <span className="font-poppins font-medium">Cek Jenis Kulit</span>
+          <div className="text-left">
+            <p className="font-poppins text-sm text-primary-900/70">Layanan:</p>
+            <a
+              href="mailto:azhar.rizqullah234@gmail.com"
+              className="font-poppins font-semibold text-primary-900 hover:text-primary-600 transition-colors flex items-center gap-2 mt-1"
+            >
+              <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
+              Cek Jenis Kulit
+            </a>
           </div>
 
           {/* Email */}
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
-            <a
-              href="mailto:azhar.rizqullah234@gmail.com"
-              className="font-poppins hover:text-primary-600 transition-colors"
-            >
-              azhar.rizqullah234@gmail.com
-            </a>
+         <div className="flex flex-col items-start gap-2">
+            <p className="font-poppins font-medium text-primary-900/70 text-sm">
+              Contact person:
+            </p>
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
+              <a
+                href="mailto:azhar.rizqullah234@gmail.com"
+                className="font-poppins font-semibold text-primary-900 hover:text-primary-600 transition-colors"
+              >
+                azhar.rizqullah234@gmail.com
+              </a>
+            </div>
           </div>
 
           {/* Brand */}

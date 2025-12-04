@@ -24,7 +24,7 @@ function Header() {
               <Link to="/" className="flex items-center space-x-3 group">
                 <div>
                   <h1 className="font-poppins text-2xl font-bold text-primary-900">
-                    Zharq
+                    FaceDX
                   </h1>
                   <p className="font-poppins text-xs text-primary-900/70 -mt-1">
                     Skin Type Classifier

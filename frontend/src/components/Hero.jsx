@@ -16,7 +16,7 @@ function Hero() {
 
           <p className="font-poppins text-lg md:text-xl text-primary-900/80 leading-relaxed mb-10">
             Web ini dirancang khusus untuk mendeteksi tipe kulit wajah kamu — 
-            <span className="font-semibold"> berminyak, kering, kombinasi, atau normal</span> — 
+            <span className="font-semibold"> berminyak, kering, berjerawat, atau normal</span> — 
             hanya dengan teknologi AI canggih. <br /><br />
             Temukan perawatan dan makeup yang <span className="text-primary-600 font-semibold">paling cocok</span> untuk kulitmu. Yuk mulai sekarang!
           </p>
