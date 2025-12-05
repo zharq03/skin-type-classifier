@@ -2,7 +2,7 @@ import React from 'react';
 
 function Hero() {
   return (
-    <section className="bg-gradient-primary min-h-screen flex items-center justify-center px-6 py-16">
+    <section className="bg-gradient-primary min-h-screen flex items-center justify-center px-6 pt-24 pb-16">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
         
         {/* Text Section */}
