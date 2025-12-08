@@ -114,7 +114,7 @@ function CekWajah() {
           {/* Kiri: Upload & Hasil */}
           <div className="space-y-8">
             <div>
-              <h1 className="font-poppins text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+              <h1 className="font-poppins text-3xl md:text-4xl font-bold text-primary-900 mb-4">
                 Cek Jenis Kulit Wajahmu Sekarang
               </h1>
               <p className="font-poppins text-lg text-primary-900/80">
@@ -132,10 +132,32 @@ function CekWajah() {
               />
 
               {image && (
-                <div className="mt-6">
-                  <img src={image} alt="Preview" className="w-full rounded-2xl shadow-lg" />
-                </div>
-              )}
+  <div className="mt-6 -mx-8 px-8">
+    {/* Container gambar — TINGGI FIX & SUPER PENDEK */}
+    <div className="
+      relative bg-gray-100 rounded-2xl  overflow-hidden
+      border-4 border-dashed border-primary-200
+      /* Tinggi super pendek & konsisten */
+      h-64           /* Mobile: 256px  ← sangat pendek */
+      sm:h-72        /* Tablet: 288px  */
+      lg:h-80        /* Desktop: 320px ← ini yang kamu mau: pendek banget di desktop! */
+      overflow-y-auto
+      scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full
+      scrollbar-thumb-primary-600 scrollbar-track-primary-50
+    ">
+      <img 
+        src={image} 
+        alt="Preview wajah" 
+        className="w-full h-auto block min-h-full object-cover object-top"
+      />
+    </div>
+
+    {/* Petunjuk scroll */}
+    <p className="text-xs text-primary-700 text-center mt-3 font-medium">
+      Geser ke bawah jika ingin melihat seluruh foto
+    </p>
+  </div>
+)}
 
               <button
                 onClick={handlePredict}
@@ -153,91 +175,77 @@ function CekWajah() {
               </button>
 
              {result && (
-  <div className="mt-6 p-8 bg-gradient-to-br from-primary-50 to-white rounded-3xl shadow-xl border border-primary-200 overflow-hidden relative">
-    <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-300/20 rounded-full blur-3xl"></div>
-    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-400/10 rounded-full blur-3xl"></div>
-
-    <div className="relative z-10">
-      <p className="text-lg font-poppins text-primary-900 mb-3">Hasil deteksi kulit wajahmu</p>
-
-      {/* Auto-mapping dari bahasa Inggris ke Indonesia + ikon */}
+  <div className="mt-6 p-6 bg-white rounded-3xl shadow-card hover:shadow-card-hover border-2 border-primary-300 transition-all">
+    {/* Header: Hasil + Ikon */}
+    <div className="flex items-center justify-center gap-4 mb-4">
       {(() => {
-        const normalized = result?.trim().toLowerCase();
-
-        // Mapping lengkap & anti-gagal
-        const config = {
-          oily: {
-            display: "Berminyak",
-            bigIcon: <Sparkles className="w-12 h-12 text-yellow-500" />,
-            tips: [
-              { icon: <Droplets className="w-5 h-5 text-cyan-600" />, text: "Cleanser berbusa setiap hari" },
-              { icon: <Sparkles className="w-5 h-5 text-emerald-600" />, text: "Clay mask 2–3× seminggu" }
-            ]
-          },
-          normal: {
-            display: "Normal",
-            bigIcon: <Smile className="w-12 h-12 text-green-500" />,
-            tips: [
-              { icon: <CheckCircle2 className="w-5 h-5 text-green-600" />, text: "Kulit ideal! Basic routine cukup" },
-              { icon: <Sun className="w-5 h-5 text-yellow-500" />, text: "Sunscreen setiap hari wajib" }
-            ]
-          },
-          dry: {
-            display: "Kering",
-            bigIcon: <Frown className="w-12 h-12 text-orange-500" />,
-            tips: [
-              { icon: <CloudRain className="w-5 h-5 text-blue-600" />, text: "Hydrating toner + serum HA" },
-              { icon: <Heart className="w-5 h-5 text-pink-500" />, text: "Moisturizer kental malam hari" }
-            ]
-          },
-          acne: {
-            display: "Berjerawat",
-            bigIcon: <AlertTriangle className="w-12 h-12 text-red-500" />,
-            tips: [
-              { icon: <Zap className="w-5 h-5 text-purple-600" />, text: "Salicylic acid / Benzoyl peroxide" },
-              { icon: <Shield className="w-5 h-5 text-teal-600" />, text: "Sunscreen non-comedogenic" }
-            ]
-          }
+        const icons = {
+          oily: <Sparkles className="w-10 h-10 text-yellow-500" />,
+          normal: <Smile className="w-10 h-10 text-green-500" />,
+          dry: <Frown className="w-10 h-10 text-orange-500" />,
+          acne: <AlertTriangle className="w-10 h-10 text-red-500" />
         };
-
-        const skin = config[normalized] || null;
-
-        if (!skin) {
-          return <p className="text-red-600 font-medium">Jenis kulit tidak dikenali: {result}</p>;
-        }
-
+        const display = {
+          oily: "Berminyak", normal: "Normal", dry: "Kering", acne: "Berjerawat"
+        };
+        const key = result?.trim().toLowerCase();
         return (
           <>
-            {/* Nama jenis kulit + ikon besar */}
-            <div className="flex items-center justify-center gap-4 mb-5">
-              {skin.bigIcon}
-              <h3 className="text-4xl md:text-5xl font-bold text-primary-700">{skin.display}</h3>
-            </div>
-
-            {/* Tips singkat */}
-            <div className="space-y-4 text-primary-800 font-medium text-center">
-              {skin.tips.map((tip, i) => (
-                <p key={i} className="flex items-center justify-center gap-2">
-                  {tip.icon} {tip.text}
-                </p>
-              ))}
-            </div>
+            {icons[key] || <AlertTriangle className="w-10 h-10 text-red-500" />}
+            <h3 className="text-3xl font-bold text-primary-900">
+              {display[key] || result}
+            </h3>
           </>
         );
       })()}
-
-      {/* CTA responsif */}
-      <div className="mt-7 pt-5 border-t border-primary-200">
-        <p className="text-sm text-primary-600 font-semibold flex items-center justify-center gap-2">
-          <span className="hidden lg:inline">
-            <ArrowRight className="w-4 h-4" /> Lihat rekomendasi lengkap di sebelah kanan
-          </span>
-          <span className="lg:hidden">
-            <ArrowDown className="w-4 h-4" /> Scroll ke bawah untuk saran lengkap
-          </span>
-        </p>
-      </div>
     </div>
+
+    {/* 2 Tips Singkat Paling Penting */}
+    <div className="space-y-3 text-center">
+      {(() => {
+        const tips = {
+          oily: [
+            { icon: <Droplets className="w-5 h-5" />, text: "Cleanser berbusa" },
+            { icon: <Sparkles className="w-5 h-5" />, text: "Clay mask 2x/minggu" }
+          ],
+          normal: [
+            { icon: <CheckCircle2 className="w-5 h-5" />, text: "Basic routine cukup" },
+            { icon: <Sun className="w-5 h-5" />, text: "Sunscreen setiap hari" }
+          ],
+          dry: [
+            { icon: <CloudRain className="w-5 h-5" />, text: "Hydrating toner" },
+            { icon: <Heart className="w-5 h-5" />, text: "Moisturizer kental" }
+          ],
+          acne: [
+            { icon: <Zap className="w-5 h-5" />, text: "Salicylic acid" },
+            { icon: <Shield className="w-5 h-5" />, text: "Sunscreen non-comedogenic" }
+          ]
+        };
+        const key = result?.trim().toLowerCase();
+        const selected = tips[key] || tips.acne;
+
+        return selected.map((tip, i) => (
+          <p key={i} className="flex items-center justify-center gap-2 text-primary-800 font-medium text-sm">
+            <span className="text-primary-600">{tip.icon}</span>
+            {tip.text}
+          </p>
+        ));
+      })()}
+    </div>
+
+    {/* CTA Kecil */}
+    <div className="mt-5 pt-4 border-t border-primary-200">
+  <p className="text-xs text-primary-600 font-bold flex items-center gap-2">
+    <span className="hidden lg:flex items-center gap-2">
+      <ArrowRight className="w-4 h-4" />
+      <span>Lihat detail di sebelah kanan</span>
+    </span>
+    <span className="flex lg:hidden items-center gap-2">
+      <ArrowDown className="w-4 h-4" />
+      <span>Scroll ke bawah untuk detail</span>
+    </span>
+  </p>
+</div>
   </div>
 )}
 
@@ -249,32 +257,37 @@ function CekWajah() {
             </div>
           </div>
 
-          {/* Kanan: Penjelasan Jenis Kulit */}
-          <div className="space-y-8">
-            <SkinTypeCard
-              type="oily"
-              imageSrc="/images/aset13.png"
-              title="Berminyak"
-              description="Kulit mengkilap, pori besar, rentan jerawat. Butuh produk oil-control & clay mask."
-            />
-            <SkinTypeCard
-              type="normal"
-              imageSrc="/images/aset5.png"
-              title="Normal"
-              description="Kulit seimbang, halus, pori kecil. Tipe kulit ideal — cukup pakai basic routine."
-            />
-            <SkinTypeCard
-              type="dry"
-              imageSrc="/images/aset6.png"
-              title="Kering"
-              description="Kulit kusam, kasar, mudah iritasi. Butuh hidrasi intens dengan moisturizer kental."
-            />
-            <SkinTypeCard
-              imageSrc="/images/aset3.png"
-              title="Berjerawat"
-              description="Kulit rentan breakout, komedo, dan inflamasi. Butuh treatment dengan salicylic acid, benzoyl peroxide, atau retinoid."
-            />
-          </div>
+         {/* Kanan: Penjelasan Jenis Kulit */}
+<div className="space-y-8">
+  <SkinTypeCard
+    type="oily"
+    imageSrc="/images/aset13.png"
+    title="Berminyak"
+    description="Kulit mengkilap, pori besar, rentan jerawat. Butuh produk oil-control & clay mask."
+    isActive={result?.trim().toLowerCase() === "oily"}
+  />
+  <SkinTypeCard
+    type="normal"
+    imageSrc="/images/aset5.png"
+    title="Normal"
+    description="Kulit seimbang, halus, pori kecil. Tipe kulit ideal — cukup pakai basic routine."
+    isActive={result?.trim().toLowerCase() === "normal"}
+  />
+  <SkinTypeCard
+    type="dry"
+    imageSrc="/images/aset6.png"
+    title="Kering"
+    description="Kulit kusam, kasar, mudah iritasi. Butuh hidrasi intens dengan moisturizer kental."
+    isActive={result?.trim().toLowerCase() === "dry"}
+  />
+  <SkinTypeCard
+    type="acne"
+    imageSrc="/images/aset3.png"
+    title="Berjerawat"
+    description="Kulit rentan breakout, komedo, dan inflamasi. Butuh treatment dengan salicylic acid, benzoyl peroxide, atau retinoid."
+    isActive={result?.trim().toLowerCase() === "acne"}
+  />
+</div>
         </div>
       </section>
     </>

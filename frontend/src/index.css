@@ -15,3 +15,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Scrollbar cantik pakai warna primary kamu */
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background: #D6FFF6;
+  border-radius: 9999px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #00AE89;
+  border-radius: 9999px;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00786F;
+}
