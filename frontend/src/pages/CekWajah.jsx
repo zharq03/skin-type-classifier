@@ -1,4 +1,8 @@
-// src/pages/CekWajah.jsx
+import { 
+  Sparkles, Smile, Frown, AlertTriangle,
+  Droplets, CheckCircle2, Sun, CloudRain,
+  Heart, Zap, Shield, ArrowRight, ArrowDown
+} from 'lucide-react';
 import { useState } from 'react';
 import SkinTypeCard from '../components/SkinTypeCard';
 
@@ -148,12 +152,94 @@ function CekWajah() {
                 {isLoading ? 'Sedang Menganalisis…' : file ? 'Analisis Sekarang' : 'Pilih Gambar Dulu'}
               </button>
 
-              {result && (
-                <div className="mt-6 p-6 bg-primary-50 rounded-2xl text-center">
-                  <p className="text-lg font-poppins text-primary-900">Hasil deteksi:</p>
-                  <p className="text-4xl font-bold text-primary-600 mt-2">{result}</p>
-                </div>
-              )}
+             {result && (
+  <div className="mt-6 p-8 bg-gradient-to-br from-primary-50 to-white rounded-3xl shadow-xl border border-primary-200 overflow-hidden relative">
+    <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-300/20 rounded-full blur-3xl"></div>
+    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-400/10 rounded-full blur-3xl"></div>
+
+    <div className="relative z-10">
+      <p className="text-lg font-poppins text-primary-900 mb-3">Hasil deteksi kulit wajahmu</p>
+
+      {/* Auto-mapping dari bahasa Inggris ke Indonesia + ikon */}
+      {(() => {
+        const normalized = result?.trim().toLowerCase();
+
+        // Mapping lengkap & anti-gagal
+        const config = {
+          oily: {
+            display: "Berminyak",
+            bigIcon: <Sparkles className="w-12 h-12 text-yellow-500" />,
+            tips: [
+              { icon: <Droplets className="w-5 h-5 text-cyan-600" />, text: "Cleanser berbusa setiap hari" },
+              { icon: <Sparkles className="w-5 h-5 text-emerald-600" />, text: "Clay mask 2–3× seminggu" }
+            ]
+          },
+          normal: {
+            display: "Normal",
+            bigIcon: <Smile className="w-12 h-12 text-green-500" />,
+            tips: [
+              { icon: <CheckCircle2 className="w-5 h-5 text-green-600" />, text: "Kulit ideal! Basic routine cukup" },
+              { icon: <Sun className="w-5 h-5 text-yellow-500" />, text: "Sunscreen setiap hari wajib" }
+            ]
+          },
+          dry: {
+            display: "Kering",
+            bigIcon: <Frown className="w-12 h-12 text-orange-500" />,
+            tips: [
+              { icon: <CloudRain className="w-5 h-5 text-blue-600" />, text: "Hydrating toner + serum HA" },
+              { icon: <Heart className="w-5 h-5 text-pink-500" />, text: "Moisturizer kental malam hari" }
+            ]
+          },
+          acne: {
+            display: "Berjerawat",
+            bigIcon: <AlertTriangle className="w-12 h-12 text-red-500" />,
+            tips: [
+              { icon: <Zap className="w-5 h-5 text-purple-600" />, text: "Salicylic acid / Benzoyl peroxide" },
+              { icon: <Shield className="w-5 h-5 text-teal-600" />, text: "Sunscreen non-comedogenic" }
+            ]
+          }
+        };
+
+        const skin = config[normalized] || null;
+
+        if (!skin) {
+          return <p className="text-red-600 font-medium">Jenis kulit tidak dikenali: {result}</p>;
+        }
+
+        return (
+          <>
+            {/* Nama jenis kulit + ikon besar */}
+            <div className="flex items-center justify-center gap-4 mb-5">
+              {skin.bigIcon}
+              <h3 className="text-4xl md:text-5xl font-bold text-primary-700">{skin.display}</h3>
+            </div>
+
+            {/* Tips singkat */}
+            <div className="space-y-4 text-primary-800 font-medium text-center">
+              {skin.tips.map((tip, i) => (
+                <p key={i} className="flex items-center justify-center gap-2">
+                  {tip.icon} {tip.text}
+                </p>
+              ))}
+            </div>
+          </>
+        );
+      })()}
+
+      {/* CTA responsif */}
+      <div className="mt-7 pt-5 border-t border-primary-200">
+        <p className="text-sm text-primary-600 font-semibold flex items-center justify-center gap-2">
+          <span className="hidden lg:inline">
+            <ArrowRight className="w-4 h-4" /> Lihat rekomendasi lengkap di sebelah kanan
+          </span>
+          <span className="lg:hidden">
+            <ArrowDown className="w-4 h-4" /> Scroll ke bawah untuk saran lengkap
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+)}
 
               {error && (
                 <p className="mt-4 text-red-600 font-poppins font-medium text-center bg-red-50 py-3 rounded-xl">
